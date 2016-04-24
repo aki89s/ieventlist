@@ -1,0 +1,6 @@
+framework module Pods_eventlist {
+  umbrella header "Pods-eventlist-umbrella.h"
+
+  export *
+  module * { export * }
+}
