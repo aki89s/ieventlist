@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6993BA1DF73B2270550AE778"
+               BlueprintIdentifier = "027B266D59822C57C7F190E9"
                BuildableName = "Pods_eventlist.framework"
                BlueprintName = "Pods-eventlist"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B2F90CEEE4555B43F18355C"
+               BlueprintIdentifier = "997BED471531B13E2F39F2EA"
                BuildableName = "BWWalkthrough.bundle"
                BlueprintName = "BWWalkthrough-BWWalkthrough"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -7,6 +7,7 @@ target 'eventlist' do
   pod 'Alamofire', '~>3.0'
   pod 'NVActivityIndicatorView'
   pod 'BWWalkthrough'
+  pod 'KeychainAccess'
 end
 
 target 'eventlistTests' do

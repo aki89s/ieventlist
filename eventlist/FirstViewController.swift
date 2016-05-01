@@ -15,7 +15,7 @@ class FirstViewController: UIViewController, BWWalkthroughViewControllerDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -44,18 +44,15 @@ class FirstViewController: UIViewController, BWWalkthroughViewControllerDelegate
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Walkthrough delegate -
 
     func walkthroughPageDidChange(pageNumber: Int) {
         print("Current Page \(pageNumber)")
     }
 
     func walkthroughCloseButtonPressed() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setBool(true, forKey: "walkthroughPresented")
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-
 }
-
