@@ -82,3 +82,82 @@ extension UIImage {
         return resizedImage
     }
 }
+
+extension UIView {
+    func radius (num: CGFloat) {
+        self.layer.cornerRadius = num
+        self.layer.masksToBounds = true
+    }
+    var top : CGFloat{
+        get{
+            return self.frame.origin.y
+        }
+        set{
+            var frame       = self.frame
+            frame.origin.y  = newValue
+            self.frame      = frame
+        }
+    }
+    var bottom : CGFloat{
+        get{
+            return frame.origin.y + frame.size.height
+        }
+        set{
+            var frame       = self.frame
+            frame.origin.y  = newValue - self.frame.size.height
+            self.frame      = frame
+        }
+    }
+    var right : CGFloat{
+        get{
+            return self.frame.origin.x + self.frame.size.width
+        }
+        set{
+            var frame       = self.frame
+            frame.origin.x  = newValue - self.frame.size.width
+            self.frame      = frame
+        }
+    }
+    var left : CGFloat{
+        get{
+            return self.frame.origin.x
+        }
+        set{
+            var frame       = self.frame
+            frame.origin.x  = newValue
+            self.frame      = frame
+        }
+    }
+    var cent : CGPoint{
+        get{
+            return CGPoint(x: self.frame.origin.x + (self.frame.size.width / 2),
+                           y: self.frame.origin.y + (self.frame.size.height / 2))
+        }
+        set{
+            var frame       = self.frame
+            frame.origin.x  = newValue.x - (frame.width/2)
+            frame.origin.y  = newValue.y - (frame.height/2)
+            self.frame      = frame
+        }
+    }
+    var x : CGFloat {
+        get{
+            return self.frame.origin.x
+        }
+        set{
+            var frame = self.frame
+            frame.origin.x = newValue
+            self.frame = frame
+        }
+    }
+    var y : CGFloat {
+        get{
+            return self.frame.origin.y
+        }
+        set{
+            var frame = self.frame
+            frame.origin.y = newValue
+            self.frame = frame
+        }
+    }
+}

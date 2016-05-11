@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -239,6 +239,8 @@
                     <navigationItem key="navigationItem" title="プロフィール" id="l1C-uF-LiR"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="descLabel" destination="gUn-TI-vOO" id="UEB-5c-k57"/>
+                        <outlet property="nameLabel" destination="HDQ-u0-b2U" id="GIg-cX-zQY"/>
                         <segue destination="FIh-Nn-rSV" kind="show" identifier="editProfileSegue" id="Hax-DB-lgP"/>
                     </connections>
                 </viewController>
@@ -330,7 +332,11 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <connections>
+                                                    <action selector="nameEditingChanged:" destination="FIh-Nn-rSV" eventType="editingChanged" id="G3m-vj-c8y"/>
+                                                    <outlet property="delegate" destination="FIh-Nn-rSV" id="yYq-OZ-ggO"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -361,6 +367,9 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <attributedString key="attributedText"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="FIh-Nn-rSV" id="sDN-du-kM0"/>
+                                                </connections>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -411,7 +420,11 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done"/>
+                                                <connections>
+                                                    <action selector="webEditingChanged:" destination="FIh-Nn-rSV" eventType="editingChanged" id="UWd-PP-pFE"/>
+                                                    <outlet property="delegate" destination="FIh-Nn-rSV" id="ZEi-Ey-uc7"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -480,7 +493,7 @@
                     </scrollView>
                     <navigationItem key="navigationItem" title="プロフィール変更" id="GE9-r2-ApQ">
                         <barButtonItem key="rightBarButtonItem" title="保存" id="VHI-gW-YFI">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="saveTapped:" destination="FIh-Nn-rSV" id="XM8-0z-2AH"/>
                             </connections>
@@ -488,6 +501,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="barItem" destination="VHI-gW-YFI" id="c8O-cf-YKa"/>
                         <outlet property="descField" destination="brp-As-AOd" id="YnH-Il-SWS"/>
                         <outlet property="nameField" destination="bx5-eT-Hi8" id="8aC-KW-yL9"/>
                         <outlet property="webField" destination="Yd6-8P-RRY" id="3xY-jR-Aps"/>
@@ -510,7 +524,7 @@
         <!--企画する-->
         <scene sceneID="Nos-di-6EP">
             <objects>
-                <viewController id="H4S-hW-rrv" sceneMemberID="viewController">
+                <viewController id="H4S-hW-rrv" customClass="ELPlanController" customModule="eventlist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="toB-v2-bYN"/>
                         <viewControllerLayoutGuide type="bottom" id="RTf-mE-hVn"/>
@@ -535,7 +549,10 @@
                                         </constraints>
                                         <color key="textColor" red="0.1764705882" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="H4S-hW-rrv" id="Pgd-1I-h5K"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="開催場所" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ApA-CI-5WQ">
                                         <rect key="frame" x="12" y="101" width="76" height="21"/>
@@ -563,8 +580,11 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
                                         <state key="normal" title="変更する"/>
+                                        <connections>
+                                            <action selector="prefecturePushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="hDJ-lE-OqD"/>
+                                        </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kgq-uM-YZD" customClass="ELTextField" customModule="eventlist" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="詳しい住所を入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kgq-uM-YZD" customClass="ELTextField" customModule="eventlist" customModuleProvider="target">
                                         <rect key="frame" x="20" y="168" width="374" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="b6l-Sr-7HT"/>
@@ -572,12 +592,15 @@
                                         </constraints>
                                         <color key="textColor" red="0.1764705882" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="b6l-Sr-7HT"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <outlet property="delegate" destination="H4S-hW-rrv" id="jLq-kC-T1L"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="開催期間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhX-ek-Umf">
                                         <rect key="frame" x="12" y="230" width="76" height="21"/>
@@ -589,15 +612,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LuB-DL-WPt">
-                                        <rect key="frame" x="20" y="259" width="222" height="30"/>
+                                        <rect key="frame" x="20" y="259" width="141" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="9Wy-3X-QbV"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
-                                        <state key="normal" title="0000年00月00日 00:00:00"/>
+                                        <state key="normal" title="0000年00月00日"/>
+                                        <connections>
+                                            <action selector="startDatePushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="780-k4-oZG"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="から" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPD-oG-dgD">
-                                        <rect key="frame" x="254" y="263" width="34" height="21"/>
+                                        <rect key="frame" x="226" y="263" width="34" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="4cc-6k-YLp"/>
                                         </constraints>
@@ -606,21 +632,24 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZLz-Ug-bgu">
-                                        <rect key="frame" x="20" y="297" width="222" height="30"/>
+                                        <rect key="frame" x="20" y="297" width="141" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="SeU-wh-bTp"/>
                                             <constraint firstAttribute="height" constant="30" id="cbT-cv-Q4T"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
-                                        <state key="normal" title="0000年00月00日 00:00:00"/>
+                                        <state key="normal" title="0000年00月00日"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="SeU-wh-bTp"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="endDatePushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="Dfd-p7-1uV"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="まで" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgp-Zh-Cpz">
-                                        <rect key="frame" x="254" y="301" width="34" height="21"/>
+                                        <rect key="frame" x="226" y="301" width="34" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="EUk-gW-vc5"/>
                                             <constraint firstAttribute="height" constant="21" id="ZLS-Co-UmR"/>
@@ -628,6 +657,11 @@
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                         <color key="textColor" red="0.1764705882" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="EUk-gW-vc5"/>
+                                            </mask>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBJ-sD-aOz">
                                         <rect key="frame" x="12" y="359" width="38" height="21"/>
@@ -678,7 +712,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-wT-xLu" customClass="ELTextField" customModule="eventlist" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="http://" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-wT-xLu" customClass="ELTextField" customModule="eventlist" customModuleProvider="target">
                                         <rect key="frame" x="20" y="577" width="374" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="N8I-cc-Wcb"/>
@@ -686,12 +720,15 @@
                                         </constraints>
                                         <color key="textColor" red="0.1764705882" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="N8I-cc-Wcb"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <outlet property="delegate" destination="H4S-hW-rrv" id="eVs-yA-qBf"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(あれば)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7n-fg-pV5">
                                         <rect key="frame" x="120" y="551" width="52" height="14"/>
@@ -713,9 +750,43 @@
                                                 <exclude reference="ZYL-Xa-DPx"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="registerPushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="BGb-L6-djE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTd-up-GzY">
+                                        <rect key="frame" x="169" y="259" width="49" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="KFT-Tl-2gM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
+                                        <state key="normal" title="00:00"/>
+                                        <connections>
+                                            <action selector="startDatePushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="03D-li-AuR"/>
+                                            <action selector="startTimePushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="8iU-AE-EXO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cue-UA-qOL">
+                                        <rect key="frame" x="169" y="297" width="49" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="Yt7-O8-G8G"/>
+                                            <constraint firstAttribute="height" constant="30" id="pBd-yV-5o1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
+                                        <state key="normal" title="00:00"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Yt7-O8-G8G"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="endDatePushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="N4W-od-Y90"/>
+                                            <action selector="endTimePushed:" destination="H4S-hW-rrv" eventType="touchUpInside" id="ze4-CX-bS0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="Vgp-Zh-Cpz" firstAttribute="centerY" secondItem="ZLz-Ug-bgu" secondAttribute="centerY" id="0MH-LM-Tdr"/>
                                     <constraint firstItem="cmM-S9-qNv" firstAttribute="width" secondItem="kgq-uM-YZD" secondAttribute="width" id="0We-xB-SA0"/>
@@ -723,11 +794,11 @@
                                     <constraint firstItem="kgq-uM-YZD" firstAttribute="top" secondItem="Oyh-6T-J9P" secondAttribute="bottom" constant="8" id="56e-MV-F0j"/>
                                     <constraint firstItem="IhX-ek-Umf" firstAttribute="leading" secondItem="ApA-CI-5WQ" secondAttribute="leading" id="66H-aS-6da"/>
                                     <constraint firstItem="IhX-ek-Umf" firstAttribute="top" secondItem="kgq-uM-YZD" secondAttribute="bottom" constant="32" id="6IJ-pr-DRN"/>
-                                    <constraint firstItem="Vgp-Zh-Cpz" firstAttribute="leading" secondItem="ZLz-Ug-bgu" secondAttribute="trailing" constant="12" id="6vN-Pw-kXb"/>
                                     <constraint firstItem="bDo-wT-xLu" firstAttribute="width" secondItem="kgq-uM-YZD" secondAttribute="width" id="9dn-Bw-4b8"/>
                                     <constraint firstItem="bd8-Fa-lyS" firstAttribute="centerY" secondItem="Oyh-6T-J9P" secondAttribute="centerY" id="AMj-GQ-qUF"/>
                                     <constraint firstAttribute="trailing" secondItem="VqY-H8-H0Z" secondAttribute="trailing" constant="20" id="ArC-hF-shG"/>
                                     <constraint firstItem="LuB-DL-WPt" firstAttribute="top" secondItem="IhX-ek-Umf" secondAttribute="bottom" constant="8" id="BNb-jp-Lbe"/>
+                                    <constraint firstItem="cue-UA-qOL" firstAttribute="leading" secondItem="ZLz-Ug-bgu" secondAttribute="trailing" constant="8" id="Bqy-If-p8G"/>
                                     <constraint firstItem="LuB-DL-WPt" firstAttribute="leading" secondItem="Oyh-6T-J9P" secondAttribute="leading" id="CeN-2Y-4y0"/>
                                     <constraint firstItem="bDo-wT-xLu" firstAttribute="leading" secondItem="kgq-uM-YZD" secondAttribute="leading" id="DAp-2i-iP2"/>
                                     <constraint firstItem="2ZG-fb-jGC" firstAttribute="top" secondItem="PFE-de-6bh" secondAttribute="top" constant="12" id="DZm-lN-WLV"/>
@@ -735,10 +806,10 @@
                                     <constraint firstItem="MZt-x7-Dys" firstAttribute="centerX" secondItem="PFE-de-6bh" secondAttribute="centerX" id="F8V-Nk-wvc"/>
                                     <constraint firstItem="ZLz-Ug-bgu" firstAttribute="leading" secondItem="Oyh-6T-J9P" secondAttribute="leading" id="MOp-GW-nCr"/>
                                     <constraint firstItem="oPD-oG-dgD" firstAttribute="centerY" secondItem="LuB-DL-WPt" secondAttribute="centerY" id="MtO-zB-4LB"/>
+                                    <constraint firstItem="oPD-oG-dgD" firstAttribute="leading" secondItem="eTd-up-GzY" secondAttribute="trailing" constant="8" id="OIo-py-Bal"/>
                                     <constraint firstItem="cmM-S9-qNv" firstAttribute="leading" secondItem="kgq-uM-YZD" secondAttribute="leading" id="Q5f-Ft-O8Q"/>
                                     <constraint firstItem="wBJ-sD-aOz" firstAttribute="top" secondItem="ZLz-Ug-bgu" secondAttribute="bottom" constant="32" id="Q6k-71-lqJ"/>
                                     <constraint firstItem="wBJ-sD-aOz" firstAttribute="leading" secondItem="IhX-ek-Umf" secondAttribute="leading" id="S3l-di-Kza"/>
-                                    <constraint firstItem="oPD-oG-dgD" firstAttribute="leading" secondItem="LuB-DL-WPt" secondAttribute="trailing" constant="12" id="UIG-TA-0W6"/>
                                     <constraint firstItem="7gX-ri-Ncu" firstAttribute="leading" secondItem="wBJ-sD-aOz" secondAttribute="leading" id="VnS-3G-XsE"/>
                                     <constraint firstItem="J7n-fg-pV5" firstAttribute="leading" secondItem="7gX-ri-Ncu" secondAttribute="trailing" constant="8" id="WI6-j0-W3M"/>
                                     <constraint firstAttribute="height" constant="713" id="Y49-nW-TVg"/>
@@ -746,17 +817,24 @@
                                     <constraint firstItem="Oyh-6T-J9P" firstAttribute="leading" secondItem="VqY-H8-H0Z" secondAttribute="leading" id="bX9-nT-fhc"/>
                                     <constraint firstItem="VqY-H8-H0Z" firstAttribute="leading" secondItem="PFE-de-6bh" secondAttribute="leading" constant="20" id="dPu-X7-pys"/>
                                     <constraint firstItem="2ZG-fb-jGC" firstAttribute="leading" secondItem="PFE-de-6bh" secondAttribute="leading" constant="12" id="iIf-eE-Fl9"/>
+                                    <constraint firstItem="eTd-up-GzY" firstAttribute="leading" secondItem="LuB-DL-WPt" secondAttribute="trailing" constant="8" id="khI-6j-c4e"/>
                                     <constraint firstItem="Oyh-6T-J9P" firstAttribute="top" secondItem="ApA-CI-5WQ" secondAttribute="bottom" constant="8" id="m2S-on-KIA"/>
                                     <constraint firstItem="bDo-wT-xLu" firstAttribute="top" secondItem="7gX-ri-Ncu" secondAttribute="bottom" constant="8" id="p6D-lL-Xn6"/>
                                     <constraint firstItem="VqY-H8-H0Z" firstAttribute="top" secondItem="2ZG-fb-jGC" secondAttribute="bottom" constant="8" id="pDv-JC-5N9"/>
                                     <constraint firstItem="ApA-CI-5WQ" firstAttribute="leading" secondItem="2ZG-fb-jGC" secondAttribute="leading" id="r94-C3-YTS"/>
                                     <constraint firstItem="cmM-S9-qNv" firstAttribute="top" secondItem="wBJ-sD-aOz" secondAttribute="bottom" constant="8" id="rH9-Fg-li5"/>
                                     <constraint firstItem="kgq-uM-YZD" firstAttribute="width" secondItem="VqY-H8-H0Z" secondAttribute="width" id="rSg-ia-FLF"/>
+                                    <constraint firstItem="cue-UA-qOL" firstAttribute="centerY" secondItem="ZLz-Ug-bgu" secondAttribute="centerY" id="sAc-Wv-mkm"/>
+                                    <constraint firstItem="eTd-up-GzY" firstAttribute="centerY" secondItem="LuB-DL-WPt" secondAttribute="centerY" id="sqo-fx-3sF"/>
                                     <constraint firstItem="ZLz-Ug-bgu" firstAttribute="top" secondItem="LuB-DL-WPt" secondAttribute="bottom" constant="8" id="tFt-xA-rKn"/>
                                     <constraint firstItem="MZt-x7-Dys" firstAttribute="top" secondItem="bDo-wT-xLu" secondAttribute="bottom" constant="32" id="tVQ-Q6-JZ1"/>
                                     <constraint firstItem="bd8-Fa-lyS" firstAttribute="leading" secondItem="Oyh-6T-J9P" secondAttribute="trailing" constant="32" id="wpG-XF-We2"/>
+                                    <constraint firstItem="Vgp-Zh-Cpz" firstAttribute="leading" secondItem="cue-UA-qOL" secondAttribute="trailing" constant="8" id="xKZ-aE-3sj"/>
                                     <constraint firstItem="kgq-uM-YZD" firstAttribute="leading" secondItem="Oyh-6T-J9P" secondAttribute="leading" id="zOx-T3-Zxm"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="LRO-kM-GVX" appends="YES" id="2bv-tZ-MHS"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -771,8 +849,25 @@
                     <navigationItem key="navigationItem" title="企画する" id="gdL-8P-Vjz"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="827"/>
+                    <connections>
+                        <outlet property="addressField" destination="kgq-uM-YZD" id="W2r-6h-EPZ"/>
+                        <outlet property="descField" destination="cmM-S9-qNv" id="DCf-CG-nuM"/>
+                        <outlet property="endDateButton" destination="ZLz-Ug-bgu" id="d0N-9l-SHU"/>
+                        <outlet property="endTimeButton" destination="cue-UA-qOL" id="3x5-RN-di2"/>
+                        <outlet property="nameField" destination="VqY-H8-H0Z" id="ACj-nA-jKK"/>
+                        <outlet property="prefectureLabel" destination="Oyh-6T-J9P" id="lmn-Wm-2Hm"/>
+                        <outlet property="scrollView" destination="IIo-1e-wGk" id="QPg-m4-8hW"/>
+                        <outlet property="startDateButton" destination="LuB-DL-WPt" id="6nQ-JA-YdX"/>
+                        <outlet property="startTimeButton" destination="eTd-up-GzY" id="86d-tQ-d34"/>
+                        <outlet property="urlField" destination="bDo-wT-xLu" id="j7W-bT-1Dv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIx-u0-cpn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="LRO-kM-GVX">
+                    <connections>
+                        <action selector="viewTapped:" destination="H4S-hW-rrv" id="RqK-mb-s6i"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1169" y="1092.5"/>
         </scene>

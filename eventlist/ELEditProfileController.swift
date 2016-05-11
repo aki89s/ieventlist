@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import KeychainAccess
 
-class ELEditProfileController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ELEditProfileController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var descField: UITextView!
     @IBOutlet weak var webField: UITextField!
@@ -17,9 +18,15 @@ class ELEditProfileController: UIViewController, UIImagePickerControllerDelegate
     var actionSheet : UIAlertController?
     var imagePicker : UIImagePickerController?
     var changed : Bool = false
+    @IBOutlet weak var barItem: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let chain = Keychain(service: ELConst().keychainBundle)
+        if chain["userRegistered"] == nil {
+            barItem.title = "登録"
+        }
+        barItem.tintColor = UIColor.darkGrayColor()
 
         imagePicker = UIImagePickerController()
         imagePicker?.allowsEditing = true
@@ -54,6 +61,12 @@ class ELEditProfileController: UIViewController, UIImagePickerControllerDelegate
         })
         for x in [actionCancel, actionNormal1, actionNormal2, actionNormal3] { actionSheet!.addAction(x) }
 
+        let def : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if def.objectForKey("userRegistered") != nil {
+            nameField.text = def.objectForKey("userName") as? String
+            descField.text = def.objectForKey("userDesc") as? String
+            webField.text = def.objectForKey("userURL") as? String
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,49 +85,43 @@ class ELEditProfileController: UIViewController, UIImagePickerControllerDelegate
 
     @IBAction func saveTapped(sender: AnyObject) {
         if changed {
+            if nameField.text == "" {
+                let alert : UIAlertController = UIAlertController(title: "名前を入力してください",
+                                                                  message: "", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            let chain : Keychain = Keychain(service: ELConst().keychainBundle)
             let def : NSUserDefaults = NSUserDefaults.standardUserDefaults()
             let deviceToken = def.objectForKey("deviceToken") != nil ? def.objectForKey("deviceToken")! : ""
             let params : [String : AnyObject] = [
-                "uuid": def.objectForKey("uuid") as! String,
-                "name": def.objectForKey("user_name") as! String,
+                "uuid": chain["uuid"]!,
+                "name": nameField.text!,
                 "desc": descField.text!,
+                "web": webField.text!,
                 "device_token": deviceToken
             ]
 
-            /*
-            let def : NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            let deviceToken = def.objectForKey("deviceToken") != nil ? def.objectForKey("deviceToken")! : ""
-            let params : [String : AnyObject] = ["uuid": def.objectForKey("uuid") as! String,
-                                                 "name": def.objectForKey("user_name") as! String,
-                                                 "sex": sexSegment.selectedSegmentIndex,
-                                                 "birth": dateLabel.text!,
-                                                 "prefecture": prefectureLabel.text!,
-                                                 "desc": textView.text!,
-                                                 "publish": publishControl.selectedSegmentIndex,
-                                                 "device_token": deviceToken
-            ]
-
-            ERequest().post("\(DeviceConst().baseURLString)/users/update", param:params){ jsonDic in
-                def.setObject(jsonDic["user"]!["name"], forKey: "user_name")
-                def.setObject(jsonDic["user"]!["id"], forKey: "user_id")
-                def.setObject(jsonDic["user"]!["birthday"], forKey: "user_birthday")
-                def.setObject(jsonDic["user"]!["desc"], forKey: "user_desc")
-                def.setObject(jsonDic["user"]!["prefecture"], forKey: "user_prefecture")
-                def.setObject(jsonDic["user"]!["sex"], forKey: "user_sex")
-                def.setObject(jsonDic["user"]!["publish"], forKey: "user_publish")
-                def.setBool(true, forKey: "didTutorial")
+            ELRequest().post("\(ELConst().baseURLString)/users/update", param:params){ jsonDic in
+                let def : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                def.setObject(self.nameField.text!, forKey: "userName")
+                def.setObject(self.descField.text!, forKey: "userDesc")
+                def.setObject(self.webField.text!, forKey: "userURL")
+                def.setObject("Registered", forKey: "userRegistered")
                 def.synchronize()
-                self.setProfile()
-                changed = false
+                if chain["userRegistered"] == nil {
+                    let alert : UIAlertController = UIAlertController(title: "",
+                                                                      message: "ユーザー登録ありがとうございます。企画ページからイベントの企画ができるようになりました。", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    chain["userRegistered"] = "Registered"
+                }
+                self.changed = false
+                self.barItem.tintColor = UIColor.darkGrayColor()
             }
-            */
         }
     }
-
-
-
-
-
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -182,5 +189,26 @@ class ELEditProfileController: UIViewController, UIImagePickerControllerDelegate
             appDelegate.loading = false
         }
          */
+    }
+    @IBAction func webEditingChanged(sender: AnyObject) {
+        valueChanged()
+    }
+
+    @IBAction func nameEditingChanged(sender: AnyObject) {
+        valueChanged()
+    }
+
+    func textViewDidChange(textView: UITextView) {
+        valueChanged()
+    }
+
+    func valueChanged() {
+        changed = true
+        barItem.tintColor = UIColor.whiteColor()
+    }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

@@ -10,8 +10,17 @@ import Foundation
 import UIKit
 
 class ELProfileController: UIViewController {
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let def : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if def.objectForKey("userRegistered") != nil {
+            nameLabel.text = def.objectForKey("userName") as? String
+            descLabel.text = def.objectForKey("userDesc") as? String
+        }
     }
 
     override func didReceiveMemoryWarning() {
